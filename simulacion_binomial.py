@@ -9,8 +9,8 @@ from scipy.stats import binom, chisquare
 class ConfiguracionBinomial:
     """Estructura para almacenar los datos del problema."""
 
-    ensambles: int = 100
-    intentos_por_ensamble: int = 15
+    ensamblajes: int = 100
+    intentos_por_ensamblaje: int = 15
     probabilidad_exito: float = 0.8
     semilla: int = 42
     alfa: float = 0.05
@@ -54,18 +54,18 @@ def main() -> None:
 
     # 1) Simulación de ensambles
     exitos = np.random.binomial(
-        n=cfg.intentos_por_ensamble,
+        n=cfg.intentos_por_ensamblaje,
         p=cfg.probabilidad_exito,
-        size=cfg.ensambles,
+        size=cfg.ensamblajes,
     )
 
     promedio_muestral = np.mean(exitos)
     varianza_muestral = np.var(exitos, ddof=1)
-    varianza_teorica = cfg.intentos_por_ensamble * cfg.probabilidad_exito * (
+    varianza_teorica = cfg.intentos_por_ensamblaje * cfg.probabilidad_exito * (
         1 - cfg.probabilidad_exito
     )
 
-    print("=== Numeral 1: Simulación de 100 ensambles ===")
+    print("=== Numeral 1: Simulación de 100 ensamblajes ===")
     print(f"Promedio muestral de éxitos: {promedio_muestral:.4f}")
     print(f"Varianza muestral de éxitos: {varianza_muestral:.4f}")
     print(f"Varianza teórica n·p·(1-p):  {varianza_teorica:.4f}")
@@ -75,7 +75,7 @@ def main() -> None:
     )
 
     # 2) Probabilidades solicitadas
-    n = cfg.intentos_por_ensamble
+    n = cfg.intentos_por_ensamblaje
     p = cfg.probabilidad_exito
     prob_exactamente_12 = binom.pmf(12, n, p)
     prob_al_menos_10 = 1 - binom.cdf(9, n, p)
@@ -90,7 +90,7 @@ def main() -> None:
     x = np.arange(0, n + 1)
     pmf_teorica = binom.pmf(x, n, p)
     frecuencias_observadas = np.bincount(exitos, minlength=n + 1)
-    frecuencias_relativas = frecuencias_observadas / cfg.ensambles
+    frecuencias_relativas = frecuencias_observadas / cfg.ensamblajes
 
     plt.figure(figsize=(10, 5))
     ancho = 0.4
@@ -119,7 +119,7 @@ def main() -> None:
     )
 
     # 4) Prueba de bondad de ajuste (chi-cuadrado)
-    esperados = cfg.ensambles * pmf_teorica
+    esperados = cfg.ensamblajes * pmf_teorica
     obs_agrupados, exp_agrupados = combinar_categorias_para_chi2(
         frecuencias_observadas, esperados, minimo_esperado=5.0
     )
