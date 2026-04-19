@@ -52,7 +52,7 @@ def main() -> None:
     cfg = ConfiguracionBinomial()
     np.random.seed(cfg.semilla)
 
-    # 1) Simulación de ensambles
+    # 1) Simulación de ensamblajes
     exitos = np.random.binomial(
         n=cfg.intentos_por_ensamblaje,
         p=cfg.probabilidad_exito,
