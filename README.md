@@ -16,7 +16,7 @@ Se agregó el archivo:
 
 Este script resuelve la actividad de la Unidad 2:
 
-- Simulación de 100 ensambles con 15 intentos y probabilidad de éxito de 0.8.
+- Simulación de 100 ensamblajes con 15 intentos y probabilidad de éxito de 0.8.
 - Cálculo de promedio y varianza muestral y comparación con la varianza teórica `n * p * (1-p)`.
 - Cálculo de probabilidades binomiales solicitadas.
 - Comparación visual entre PMF teórica y frecuencias simuladas.
@@ -25,6 +25,7 @@ Este script resuelve la actividad de la Unidad 2:
 Ejecución:
 
 ```bash
+pip install -r requirements.txt
 python simulacion_binomial.py
 ```
 
