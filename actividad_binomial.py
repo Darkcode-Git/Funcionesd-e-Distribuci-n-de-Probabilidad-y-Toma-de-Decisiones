@@ -4,7 +4,17 @@ from scipy.stats import binom, chisquare
 
 
 def agrupar_categorias(frec_obs, frec_exp, minimo_esperado=5):
-    """Agrupa categorías contiguas hasta que cada frecuencia esperada sea >= mínimo."""
+    """
+    Agrupa categorías contiguas hasta alcanzar una frecuencia esperada mínima.
+
+    Args:
+        frec_obs: Frecuencias observadas por categoría.
+        frec_exp: Frecuencias esperadas por categoría.
+        minimo_esperado: Umbral mínimo recomendado para prueba chi-cuadrado.
+
+    Returns:
+        Tuple[np.ndarray, np.ndarray]: frecuencias observadas y esperadas agrupadas.
+    """
     grupos_obs = []
     grupos_exp = []
 
@@ -35,14 +45,15 @@ def main():
     # Parámetros iniciales
     n = 15
     p = 0.8
-    simulaciones = 100
+    num_simulaciones = 100
     np.random.seed(42)
 
     # 1. Generar datos simulados
-    datos_simulados = np.random.binomial(n, p, simulaciones)
+    datos_simulados = np.random.binomial(n, p, num_simulaciones)
 
     # Cálculo de promedio y varianza de los datos simulados
     promedio_sim = np.mean(datos_simulados)
+    # Se usa varianza poblacional (ddof=0) para comparar con la varianza teórica n*p*(1-p).
     varianza_sim = np.var(datos_simulados)
     varianza_teorica = n * p * (1 - p)
 
@@ -96,11 +107,11 @@ def main():
 
     # 4. Prueba de bondad de ajuste chi-cuadrado
     frec_observada, _ = np.histogram(datos_simulados, bins=np.arange(n + 2) - 0.5)
-    frec_esperada = pmf_teorica * simulaciones
+    frec_esperada = pmf_teorica * num_simulaciones
 
     obs_agrupada, esp_agrupada = agrupar_categorias(frec_observada, frec_esperada, minimo_esperado=5)
 
-    # Ajuste para que las sumas observadas y esperadas coincidan exactamente
+    # Reescalado para igualar sumas y evitar error numérico en chisquare.
     esp_agrupada = esp_agrupada * (obs_agrupada.sum() / esp_agrupada.sum())
 
     stat, p_value = chisquare(obs_agrupada, f_exp=esp_agrupada)
