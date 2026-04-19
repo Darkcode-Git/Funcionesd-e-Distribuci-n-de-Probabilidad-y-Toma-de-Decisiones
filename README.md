@@ -7,3 +7,27 @@ Esta unidad  ofrece una introducción detallada al análisis multivariado de dat
 <img width="2667" height="1488" alt="image" src="https://github.com/user-attachments/assets/58c7f781-4710-4380-8b7f-8fea6e8f2d6b" />
 <img width="2667" height="1488" alt="image" src="https://github.com/user-attachments/assets/fb4775b9-4b5d-4f54-b8f9-0bf45ef9e703" />
 <img width="2667" height="1488" alt="image" src="https://github.com/user-attachments/assets/aab6f377-2107-443c-8e05-74fd831fd5c8" />
+
+## Evidencia de aprendizaje: Distribución Binomial
+
+Se agregó el archivo:
+
+- `simulacion_binomial.py`
+
+Este script resuelve la actividad de la Unidad 2:
+
+- Simulación de 100 ensambles con 15 intentos y probabilidad de éxito de 0.8.
+- Cálculo de promedio y varianza muestral y comparación con la varianza teórica `n * p * (1-p)`.
+- Cálculo de probabilidades binomiales solicitadas.
+- Comparación visual entre PMF teórica y frecuencias simuladas.
+- Prueba de bondad de ajuste Chi-cuadrado con interpretación del valor p.
+
+Ejecución:
+
+```bash
+python simulacion_binomial.py
+```
+
+El script genera la figura:
+
+- `pmf_vs_simulacion_binomial.png`
